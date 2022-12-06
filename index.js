@@ -4,7 +4,7 @@ const dotenv = require('dotenv').config();
 // Create express app
 const app = express();
 app.use(express.json())
-const port = 3000;
+const PORT = process.env.PORT || 3030;
 // Create pool
 const pool = new Pool({
     user: process.env.PSQL_USER,
@@ -26,7 +26,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(__dirname + '/public'));
-app.set('views', './views');
+app.set('views', __dirname + '/views');
 app.set("view engine", "ejs");
 
 app.get('/', (req, res) => {
@@ -145,6 +145,6 @@ app.get('/Menu-Edit1', (req, res) => {
     res.render('manager');
 }); 
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
 });
