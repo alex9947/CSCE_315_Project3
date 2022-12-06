@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="\css\photo.css" type="text/css">
+        <link rel="stylesheet" href="\css\photo.css" type="text/css" id="page_style"></link>
         <title>Customer POS</title> 
     </head>
     <body>
@@ -145,6 +145,12 @@
       
             function switchContrast() {
                loadTheme("\css\contrast.css");
+            } 
+            
+            function load_style()
+            {
+                
+                document.getElementById('page_style').setAttribute("href", "\css\dyslexic.css");
             }
       
             function send() {
@@ -229,7 +235,7 @@
         <div class = "bottom">
             <button id="default" onclick="switchDefault()">Default</button>
             <button id="photo" onclick="switchPhoto()">Photo</button>
-            <button id="dyslexic" onclick="switchDyslexic()">Dyslexic Font</button>
+            <button id="dyslexic" onclick="load_style()">Dyslexic Font</button>
             <button id="grayscale" onclick="switchGrayscale()">Gray-scale</button>
             <button id="contrast" onclick="switchContrast()">High Contrast</button>
             <button id="order" onclick="send()">Place Order</button>
