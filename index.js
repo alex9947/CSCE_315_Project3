@@ -4,7 +4,7 @@ const dotenv = require('dotenv').config();
 // Create express app
 const app = express();
 app.use(express.json())
-const PORT = process.env.PORT || 3030;
+const port = 3000;
 // Create pool
 const pool = new Pool({
     user: process.env.PSQL_USER,
@@ -144,6 +144,6 @@ app.get('/Menu-Edit1', (req, res) => {
     res.render('manager');
 }); 
 
-app.listen(PORT, () => {
-  console.log(`server started on port ${PORT}`);
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
 });
