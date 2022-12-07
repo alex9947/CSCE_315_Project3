@@ -127,12 +127,11 @@
             // Andrew stuff below ----------------------------------------------
       
             function loadTheme(theme) {
-               var prev_theme = document.getElementsByTagName('link')[0];
-               prev_theme.setAttribute('href',theme);
+                document.getElementById('page_style').setAttribute("href", theme);
             }
       
             function switchDefault() {
-               loadTheme("\css\default.css");
+               loadTheme("/css/default.css");
             }
       
             function switchDyslexic() {
@@ -140,11 +139,11 @@
             }
       
             function switchGrayscale() {
-               loadTheme("\css\grayscale.css");
+               loadTheme("/css/grayscale.css");
             }
       
             function switchContrast() {
-               loadTheme("\css\contrast.css");
+               loadTheme("/css/contrast.css");
             } 
             
             function load_style()
