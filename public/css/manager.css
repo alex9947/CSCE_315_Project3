@@ -103,3 +103,10 @@ button:link {
 h1::selection, h2::selection, button::selection {
     text-decoration: none;
 }
+
+form{
+    width:200px;
+    height:200px;
+    display:inline-block;
+    margin:1em;
+}
