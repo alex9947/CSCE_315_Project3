@@ -145,6 +145,132 @@ app.get('/Menu-Edit1', (req, res) => {
     res.render('manager');
 }); 
 
+//
+app.post('/rev', (req, res) => {
+  revenueReport = []
+  var startDate = req.body.date1;
+  var endDate = req.body.date2;
+  var queryReport = "SELECT SUM(total_price) FROM orders WHERE order_time >= '" + startDate + "' and order_time <= '" + endDate + "';";
+  pool
+      .query(queryReport)
+      .then(query_res => {
+          for (let i = 0; i < query_res.rowCount; i++){
+              revenueReport.push(query_res.rows[i]);
+          }
+          const data = {revenueReport: revenueReport};
+          res.render('revenueReport', data);
+          
+      });
+});
+
+//
+app.post('/s', (req, res) => {
+  salesReport = []
+  var startDate = req.body.date1;
+  var endDate = req.body.date2;
+  console.log('yuhhh');
+  var queryReport = "SELECT item_name, SUM(item_price) FROM ordered_item WHERE order_time >= '" + startDate + "' and order_time <= '" + endDate + "' GROUP BY item_name;";
+  pool
+      .query(queryReport)
+      .then(query_res => {
+          for (let i = 0; i < query_res.rowCount; i++){
+              salesReport.push(query_res.rows[i]);
+          }
+          const data = {salesReport: salesReport};
+          res.render('salesReport', data);
+          
+      });
+});
+
+
+
+
+//
+app.post('/e', (req, res) => {
+  excessReport = []
+  var queryReport = "SELECT item, quantity_sold FROM manager WHERE quantity_sold < inventory * 0.1;";
+  pool
+      .query(queryReport)
+      .then(query_res => {
+          for (let i = 0; i < query_res.rowCount; i++){
+              excessReport.push(query_res.rows[i]);
+          }
+          const data = {excessReport: excessReport};
+          res.render('excessReport', data);
+          
+      });
+});
+
+//
+app.post('/rst', (req, res) => {
+  restockReport = []
+  var queryReport = "SELECT item, minimum_quantity, quantity_sold FROM manager WHERE minimum_quantity > inventory;";
+  pool
+      .query(queryReport)
+      .then(query_res => {
+          for (let i = 0; i < query_res.rowCount; i++){
+              restockReport.push(query_res.rows[i]);
+          }
+          const data = {restockReport: restockReport};
+          res.render('restockReport', data);
+          
+      });
+});
+
+//
+app.post('/w', (req, res) => {
+  whatSellsReport = []
+  var startDate = req.body.date1;
+  var endDate = req.body.date2;
+  var queryReport = "SELECT LEAST(base, protein) AS protein, GREATEST(base, protein) AS base, COUNT(*) AS Frequency FROM orders1 WHERE day >= '" + startDate + "' AND day < '"+ endDate +"' GROUP BY base, protein ORDER BY Frequency DESC;";
+  pool
+      .query(queryReport)
+      .then(query_res => {
+          for (let i = 0; i < query_res.rowCount; i++){
+              whatSellsReport.push(query_res.rows[i]);
+          }
+          const data = {whatSellsReport: whatSellsReport};
+          res.render('whatSellsReport', data);
+          
+      });
+});
+
+//
+app.post('/i', (req, res) => {
+  inventoryUpdate = []
+  var itemname = req.body.itemName;
+  var quant = req.body.inventory;
+  var queryReport = "UPDATE manager SET inventory = '" + quant + "' WHERE item = '"+ itemname +"';";
+  pool
+      .query(queryReport)
+      .then(query_res => {
+          for (let i = 0; i < query_res.rowCount; i++){
+              inventoryUpdate.push(query_res.rows[i]);
+          }
+          const data = {inventoryUpdate: inventoryUpdate};
+          res.render('inventoryUpdate', data);
+          
+      });
+});
+
+app.post('/p', (req, res) => {
+  pricingUpdate = []
+  var itemname = req.body.itemName;
+  var pricing = req.body.cost;
+  
+  var queryReport = "UPDATE manager SET price = '" + pricing + "' WHERE item = '"+ itemname +"';";
+  pool
+      .query(queryReport)
+      .then(query_res => {
+          for (let i = 0; i < query_res.rowCount; i++){
+              pricingUpdate.push(query_res.rows[i]);
+          }
+          const data = {pricingUpdate: pricingUpdate};
+          res.render('pricingUpdate', data);
+          
+      });
+}); 
+
 app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
 });
