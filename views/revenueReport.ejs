@@ -55,16 +55,12 @@
             <a href='/server'>Server POS</a>
             <a href='/manager'>Manager View</a>
         </header>
-        <!-- <div class = "button-container"> -->
-            <!-- <div class = "reports">  -->
                 <h2> Reports </h2> 
                 <div class = "menu-edit">
-                <!--<button onclick="revenue()">Revenue Report</button>
-                <button onclick="sales()">Sales Report</button>
-                <button onclick="excess()">Excess Report</button>
-                <button onclick="restockrep()">Restock Report</button>
-                <button onclick="wst()">What Sales Together</button>-->
-               
+                <% for (var i in revenueReport) {%>
+                    <p>Total Revenue: <%=revenueReport[i].sum%><p>
+                <% } %>
+                
                 <form action="/rev" method="post">
                     
                     <input type="text" id="sdate" name="date1" placeholder="Start Date">
@@ -96,27 +92,12 @@
                     <input type="text" id="edate" name="date2" placeholder="End Date">
                     <button type="submit" value="What Sells Together Report">What Sells Together Report</button>
                 </form>
-                  
-           </div>
-            <!--<form action="/reven" method="post" id="rev" style="display: none;">
-                <input type="text" name="date1" placeholder="Start Date">
-                <input type="text" name="date2" placeholder="End Date">
-                <input type="submit" value="Generate Report">
-            </form>
-             
-            <p id="revenue"></p>
-            <p id="sales"></p>
-            <p id="excess"></p>
-            <p id="restockrep"></p>
-            <p id="wst"></p>-->
+                    
+            </div>
 
             <div class = "menu-edit">
                 <h2> Edit Menu </h2> 
-                <!--<button id="s" onclick="inventory()">Inventory</button>
-                <button id="s" onclick="restock()">Restock</button>
-                <button id="s" onclick="pricing()">Pricing</button>
-                <button id="s" onclick="additem()">Add Menu Item</button>-->
-
+                
                 <form action="/i" method="post">
                     <input type="text" id="item" name="itemName" placeholder="Item Name">
                     <input type="text" id="inven" name="inventory" placeholder="New Inventory">
@@ -130,7 +111,6 @@
                 </form>
             </div>
 
-           
-        <!-- </div> -->
+            
     </body>
 </html>
