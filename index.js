@@ -129,7 +129,7 @@ app.post('/', (req, res) => {
       });
     });
   });
-  res.render('user');
+  //res.render('user');
 });
 
 app.get('/Menu-Edit1', (req, res) => {
